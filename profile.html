@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container w-50 border p-4 shadow">
+        <h2 class="text-center mb-4">User Profile</h2>
+
+        <form id="profileForm">
+            <div class="text-center">
+                <img id="profileImage" src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-img rounded-circle" width="150">
+                <input type="file" id="uploadProfileImage" class="form-control mt-2" accept="image/*">
+                <button type="button" class="btn btn-sm btn-primary mt-2" onclick="uploadProfilePicture()">Upload</button>
+            </div>
+
+            <div class="mb-3">
+                <label for="profileName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="profileName" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="profileEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="profileEmail" required readonly>
+            </div>
+
+            <div class="mb-3">
+                <label for="profilePhone" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="profilePhone" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="profileAddress" class="form-label">Address</label>
+                <textarea class="form-control" id="profileAddress" rows="2" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Save Profile</button>
+        </form>
+
+        <hr>
+        
+        <h3 class="text-center mt-4">Your Bookings</h3>
+        <ul id="bookingList" class="list-group"></ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function() {
+            const token = localStorage.getItem("token");
+            const user = JSON.parse(localStorage.getItem("user"));
+
+            if (!token) {
+                alert("Please log in first.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            document.getElementById("profileName").value = user.name;
+            document.getElementById("profileEmail").value = user.email;
+            document.getElementById("profilePhone").value = user.phone || "";
+            document.getElementById("profileAddress").value = user.address || "";
+            document.getElementById("profileImage").src = user.profilePicture || "https://via.placeholder.com/150";
+
+            // Fetch User Bookings
+            try {
+                const response = await fetch("http://localhost:5000/bookings", {
+                    method: "GET",
+                    headers: { "x-auth-token": token }
+                });
+
+                const bookings = await response.json();
+                let bookingList = "";
+                bookings.forEach(booking => {
+                    bookingList += `<li class="list-group-item">Room ${booking.roomNumber} - Check-in: ${booking.checkInDate} - Check-out: ${booking.checkOutDate}</li>`;
+                });
+
+                document.getElementById("bookingList").innerHTML = bookingList;
+            } catch (error) {
+                console.log("Error fetching bookings", error);
+            }
+        });
+
+        // Save Updated Profile
+        document.getElementById("profileForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            const token = localStorage.getItem("token");
+            const user = JSON.parse(localStorage.getItem("user"));
+            if (!user || !user._id) {
+            alert("User ID is missing. Please log in again.");
+            return;
+            }
+            
+            const updatedProfile = {
+                name: document.getElementById("profileName").value,
+                phone: document.getElementById("profilePhone").value,
+                address: document.getElementById("profileAddress").value,
+            };
+
+            try {
+                const response = await fetch(`http://localhost:5000/update-profile/${user._id}`, {
+                    method: "PUT",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "x-auth-token": token
+                    },
+                    body: JSON.stringify(updatedProfile)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert("Profile updated successfully!");
+                    localStorage.setItem("user", JSON.stringify({ ...JSON.parse(localStorage.getItem("user")), ...updatedProfile }));
+                    window.location.href = "index.html"; 
+                } else {
+                    alert(data.msg);
+                }
+            } catch (error) {
+                alert("Error updating profile.");
+            }
+        });
+
+        // Upload Profile Picture
+    async function uploadProfilePicture() {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const fileInput = document.getElementById("uploadProfileImage");
+
+    if (!user || !user._id) {
+        alert("User ID is missing. Please log in again.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    if (fileInput.files.length === 0) {
+        alert("Please select an image first.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("userId", user._id); // ✅ Send userId
+    formData.append("profilePicture", fileInput.files[0]);
+
+    try {
+        const response = await fetch("http://localhost:5000/update-profile-picture", {
+            method: "POST",
+            headers: { "x-auth-token": token },
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("Profile picture updated successfully!");
+            document.getElementById("profileImage").src = data.profilePicture;
+            user.profilePicture = data.profilePicture; 
+            localStorage.setItem("user", JSON.stringify(user)); // ✅ Update user data in localStorage
+        } else {
+            alert(data.msg);
+        }
+    } catch (error) {
+        alert("Error uploading profile picture.");
+    }
+}
+
+    </script>
+</body>
+</html>

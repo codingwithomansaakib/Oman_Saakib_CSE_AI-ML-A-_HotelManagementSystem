@@ -1,0 +1,36 @@
+
+    body {
+        background-color: #f8f9fa;
+    }
+    .container {
+        background: white;
+        border-radius: 8px;
+    }
+    h2 {
+        color: #007bff;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    .profile-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto 15px;
+    }
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+    }
+    
+   
+    
+    
+    
+

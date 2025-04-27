@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Ubuntu House</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#rooms">Rooms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="signup.html">Sign Up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="your_booking.html">Booking Details </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <!-- Hero Section -->
+    <header id="home" class="bg-primary text-white text-center py-5">
+        <h1>Welcome to Ubuntu House</h1>
+        <p>Luxury and comfort at the best prices</p>
+        <a href="#booking" class="btn btn-primary">Book Now</a>
+    </header>
+
+    <!-- Rooms Section -->
+    <section id="rooms" class="container py-5">
+        <h2 class="text-center mb-4">Our Rooms</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="diluxe room.jpg" class="card-img-top" alt="Room 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Deluxe Room</h5>
+                        <p class="card-text">Starting at Rs10000 per night</p>
+                        <a href="#booking" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="suite room.webp" class="card-img-top" alt="Room 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Suite</h5>
+                        <p class="card-text">Starting at Rs20000 per night</p>
+                        <a href="#booking" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="presidential suite.jpg" class="card-img-top" alt="Room 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Presidential Suite</h5>
+                        <p class="card-text">Starting at Rs35000 per night</p>
+                        <a href="#booking" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Booking Section -->
+    <section id="booking" class="container py-5">
+        <h2 class="text-center mb-4">Book Your Stay</h2>
+        <form id="bookingForm" class="row g-3">
+            <div class="col-md-6">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="col-md-3">
+                <label for="adults" class="form-label">Adults</label>
+                <input type="number" class="form-control" id="adults" min="1" required>
+            </div>
+            <div class="col-md-3">
+                <label for="children" class="form-label">Children</label>
+                <input type="number" class="form-control" id="children" min="0">
+            </div>
+            <div class="col-md-3">
+                <label for="checkin" class="form-label">Check-in Date</label>
+                <input type="date" class="form-control" id="checkin" required>
+            </div>
+            <div class="col-md-3">
+                <label for="checkout" class="form-label">Check-out Date</label>
+                <input type="date" class="form-control" id="checkout" required>
+            </div>
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary">Confirm Booking</button>
+            </div>
+            <h3 class="text-center mt-4">Your Bookings</h3>
+            <ul id="bookingList" class="list-group"></ul>
+
+        </form>
+        <!-- Add inside body (before closing </body>) -->
+        <video id="camera" width="320" height="240" autoplay style="display:none; margin: 0 auto;"></video>
+        <canvas id="snapshot" width="320" height="240" style="display:none;"></canvas>
+
+    </section>
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2025 Ubunto House. All rights reserved.</p>
+        <!-- About Section -->
+        <section id="about" class="container py-5">
+            <h2 class="text-center mb-4">About Us</h2>
+            <p class="text-center">Ubunto House is a luxurious hotel offering world-class amenities, exquisite dining,
+                and comfortable stays for travelers. Whether for business or leisure, our rooms and services provide an
+                unmatched experience.</p>
+        </section>
+        <!-- Contact Section -->
+        <section id="contact" class="container py-5">
+            <h2 class="text-center mb-4">Contact Us</h2>
+            <p class="text-center">For any inquiries, call us at: <a href="Mobileno +917667875691">+91 7667875691</a>
+            </p>
+        </section>
+    </footer>
+
+    <script src="server.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            const token = localStorage.getItem("token");
+            const user = JSON.parse(localStorage.getItem("user"));
+    
+            if (!token || !user || !user._id) {
+                alert("User not logged in. Redirecting to login.");
+                window.location.href = "login.html";
+                return;
+            }
+    
+            loadBookings(); // 🔄 Load user bookings when page loads
+        });
+    
+        // 🔥 Capture face before confirming booking
+        async function captureFaceBeforeBooking(bookingData) {
+            const video = document.getElementById('camera');
+            const canvas = document.getElementById('snapshot');
+            const ctx = canvas.getContext('2d');
+    
+            try {
+                // Start webcam
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+                video.style.display = "block";
+    
+                alert("📸 Please show your face to the camera. Click OK to capture.");
+    
+                await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2 sec
+    
+                // Capture photo
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+                // Stop camera
+                stream.getTracks().forEach(track => track.stop());
+                video.style.display = "none";
+    
+                // Get image base64
+                const faceImageBase64 = canvas.toDataURL("image/jpeg");
+    
+                // Submit booking along with face image
+                await submitBookingWithFace(bookingData, faceImageBase64);
+    
+            } catch (error) {
+                console.error("Camera Error:", error);
+                alert("❌ Could not access camera.");
+            }
+        }
+    
+        async function submitBookingWithFace(bookingData, faceImageBase64) {
+            const token = localStorage.getItem("token");
+    
+            const bookingPayload = { ...bookingData, faceImage: faceImageBase64 };
+    
+            const response = await fetch("http://localhost:5000/book-room", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-auth-token": token
+                },
+                body: JSON.stringify(bookingPayload),
+            });
+    
+            const data = await response.json();
+            if (response.ok) {
+                alert("✅ Booking Confirmed with Face Verification!");
+                loadBookings();
+            } else {
+                alert("❌ Error: " + data.msg);
+            }
+        }
+    
+        // ✅ Modify your Booking Submission Handler
+        document.getElementById("bookingForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+    
+            const token = localStorage.getItem("token");
+            const user = JSON.parse(localStorage.getItem("user"));
+    
+            if (!token || !user || !user._id) {
+                alert("User ID is missing. Please log in again.");
+                window.location.href = "login.html";
+                return;
+            }
+    
+            const bookingData = {
+                userId: user._id,
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                roomType: "Deluxe",  // static for now
+                checkIn: document.getElementById("checkin").value,
+                checkOut: document.getElementById("checkout").value,
+                adults: document.getElementById("adults").value,
+                children: document.getElementById("children").value,
+            };
+    
+            // 🔥 Instead of directly submitting — first capture face
+            await captureFaceBeforeBooking(bookingData);
+        });
+    
+        // Dummy Function for loading bookings (you can implement it separately)
+        async function loadBookings() {
+            console.log("Bookings Loaded (You can load from server)");
+        }
+    </script>
+    
+
+
+
+
+
+</body>
+
+</html>
